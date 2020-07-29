@@ -1,6 +1,5 @@
-
 resource "aws_iam_policy" "policy" {
-  name        = "${var.lambda_logs_policy_name}"
+  name        = var.lambda_logs_policy_name
   description = "firehoseCloudWatchDataProcessing permissions"
 
   policy = <<EOF
@@ -33,11 +32,13 @@ resource "aws_iam_policy" "policy" {
     }
 	]
 }
-  EOF
+  
+EOF
+
 }
 
 resource "aws_iam_role" "lambda_logs" {
-  name = "${var.lambda_logs_role_name}"
+  name = var.lambda_logs_role_name
 
   assume_role_policy = <<EOF
 {
@@ -51,10 +52,14 @@ resource "aws_iam_role" "lambda_logs" {
 		"Sid": ""
 	}]
 }
-    EOF
+    
+EOF
+
 }
+
 resource "aws_iam_policy_attachment" "attach" {
   name       = "attachment"
-  roles      = ["${aws_iam_role.lambda_logs.name}"]
-  policy_arn = "${aws_iam_policy.policy.arn}"
+  roles      = [aws_iam_role.lambda_logs.name]
+  policy_arn = aws_iam_policy.policy.arn
 }
+

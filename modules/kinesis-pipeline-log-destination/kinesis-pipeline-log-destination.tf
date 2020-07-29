@@ -1,6 +1,6 @@
 resource "aws_iam_role" "log_role" {
-  name = "${var.log_role}"
-  path =  "/service-role/"
+  name               = var.log_role
+  path               = "/service-role/"
   assume_role_policy = <<EOF
 {
 	"Version": "2012-10-17",
@@ -13,7 +13,9 @@ resource "aws_iam_role" "log_role" {
 		"Sid": ""
 	}]
 }
-    EOF
+    
+EOF
+
 }
 
 resource "aws_iam_policy" "stream_policy" {
@@ -35,17 +37,20 @@ resource "aws_iam_policy" "stream_policy" {
 		}
 	]
 }
-  EOF
+  
+EOF
+
 }
 
 resource "aws_iam_policy_attachment" "log_role_attach" {
   name       = "log-role-attach"
-  roles      = ["${aws_iam_role.log_role.name}"]
-  policy_arn = "${aws_iam_policy.stream_policy.arn}"
+  roles      = [aws_iam_role.log_role.name]
+  policy_arn = aws_iam_policy.stream_policy.arn
 }
 
 resource "aws_cloudwatch_log_destination" "log_destination" {
-  name       = "${var.log_destination_name}"
-  role_arn   = "${aws_iam_role.log_role.arn}"
-  target_arn = "${var.kinesis_stream_arn}"
+  name       = var.log_destination_name
+  role_arn   = aws_iam_role.log_role.arn
+  target_arn = var.kinesis_stream_arn
 }
+

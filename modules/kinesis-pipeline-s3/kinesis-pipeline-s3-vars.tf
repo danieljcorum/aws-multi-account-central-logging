@@ -1,18 +1,18 @@
-
 variable "bucket_name" {
   description = "Bucket name for the centralized logging bucket"
-  default = ""
+  default     = ""
 }
 
 variable "build_version" {
   description = "build version appended to resource names"
-  default = ""
+  default     = ""
 }
 
 variable "access_logs_bucket_name" {
   description = "Bucket name for the centralized logging bucket"
-  default = ""
+  default     = ""
 }
+
 variable "logstash_instance_profile_role_arn" {
   default = ""
 }
@@ -20,25 +20,30 @@ variable "logstash_instance_profile_role_arn" {
 #Tags/Naming
 variable "env" {
   description = "Name of environment used for deployment"
-  default = ""
+  default     = ""
 }
 
 variable "project" {
   description = "description of what we are building"
-  default = ""
+  default     = ""
 }
 
 variable "owner_group" {
   description = "group responsible for deployment"
-  default = ""
+  default     = ""
 }
 
 variable "header" {
   description = "group responsible for deployment"
-  default = ""
+  default     = ""
 }
 
 variable "technical_poc" {
   description = "preferrably group email"
-  default = ""
+  default     = ""
 }
+
+variable "acct_num" {
+  description = "tennant account number"
+}
+

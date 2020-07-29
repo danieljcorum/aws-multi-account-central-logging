@@ -5,18 +5,23 @@ variable "tags" {
     "client"  = "NA"
   }
 }
+
 variable "bucketname" {
-    default = ""
+  default = ""
 }
+
 variable "cloudtrail_log_group_name" {
-    default = ""
+  default = ""
 }
+
 variable "aws_account_id" {
-    default = ""
+  default = ""
 }
+
 variable "aws_region" {
-    default = ""
+  default = ""
 }
+
 variable "trail_name" {
   default = ""
 }
@@ -24,9 +29,12 @@ variable "trail_name" {
 variable "cloudwatch_create" {
   default = ""
 }
+
 variable "cloudwatch_arn" {
   default = ""
 }
+
 variable "cloudwatch_id" {
   default = ""
 }
+

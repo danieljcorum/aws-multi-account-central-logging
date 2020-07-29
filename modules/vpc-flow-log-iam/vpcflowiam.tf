@@ -3,7 +3,6 @@ variable "vpc_flow_enabled" {
 }
 
 data "aws_iam_policy_document" "log_assume" {
-
   statement {
     actions = ["sts:AssumeRole"]
 
@@ -32,15 +31,16 @@ data "aws_iam_policy_document" "log" {
 
 resource "aws_iam_role_policy" "log" {
   name   = "vpcflowlog-policy"
-  role   = "${aws_iam_role.log.id}"
-  policy = "${data.aws_iam_policy_document.log.json}"
+  role   = aws_iam_role.log.id
+  policy = data.aws_iam_policy_document.log.json
 }
 
 resource "aws_iam_role" "log" {
-  name               = "vpcflowlog-role"
-  assume_role_policy = "${data.aws_iam_policy_document.log_assume.json}"
+  name               = "vpcflowlog-role-tf"
+  assume_role_policy = data.aws_iam_policy_document.log_assume.json
 }
 
 output "role_arn" {
-  value = "${aws_iam_role.log.arn}"
+  value = aws_iam_role.log.arn
 }
+

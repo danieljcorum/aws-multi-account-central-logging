@@ -1,5 +1,5 @@
 resource "aws_iam_role" "firehose_role" {
-  name = "${var.kinesis_pipeline_firehose_role_name}"
+  name = var.kinesis_pipeline_firehose_role_name
 
   assume_role_policy = <<EOF
 {
@@ -22,10 +22,11 @@ resource "aws_iam_role" "firehose_role" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_policy" "firehose_policy" {
-  name        = "${var.kinesis_pipeline_firehose_policy_name}"
+  name        = var.kinesis_pipeline_firehose_policy_name
   description = "Firehose log processing permissions"
 
   policy = <<EOF
@@ -62,11 +63,14 @@ resource "aws_iam_policy" "firehose_policy" {
     }
 	]
 }
-  EOF
+  
+EOF
+
 }
 
 resource "aws_iam_policy_attachment" "firehose-attach" {
   name       = "firehose-attachment"
-  roles      = ["${aws_iam_role.firehose_role.name}"]
-  policy_arn = "${aws_iam_policy.firehose_policy.arn}"
+  roles      = [aws_iam_role.firehose_role.name]
+  policy_arn = aws_iam_policy.firehose_policy.arn
 }
+
